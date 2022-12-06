@@ -1,0 +1,19 @@
+{% extends "main/base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <h1>Страница с поиском книг</h1>
+    <div class="input-group">
+        <div class="form-outline">
+            <input id="search-input" type="search" class="form-control" placeholder="Search"/>
+{#             TODO: Search event#}
+        </div>
+        <button id="search-button" type="button" class="btn btn-primary">Search</button>
+    </div>
+    {% comment %}<div class="input-group rounded">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <i class="fas fa-search"></i>
+        </span>
+    </div>{% endcomment %}
+
+{% endblock %}
