@@ -1,12 +1,18 @@
 {% extends 'main/base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Войти в аккаунт READSSY{% endblock %}
+{% block title %} Войти в аккаунт READSSY {% endblock %}
 {%  block content %}
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <a href={ #signup} >Зарегистрироваться</a>
-        <button type="submit" class="btn btn-success">Войти</button>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-success container-fluid">Войти</button>
+            </div>
+            <div class="col">
+                <a href={%  url 'signup' %}>Зарегистрироваться</a>
+            </div>
+        </div>
     </form>
 {% endblock %}
