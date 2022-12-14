@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Findings {% endblock %}
+{% block content %}
+    <h2> Книги по запросу: {{ query }} </h2>
+    <form method="POST">
+        {% csrf_token %}
+        <ul>
+            {% for book in books %}
+                <div class="jumbotron">
+                    <h3 class="display-4">{{ book.name }}</h3>
+                    <p class="lead">{{ book.author }}</p>
+                    <p class="lead">{{ book.ranking }}</p>
+                    <p class="lead">{{ book.genre }}</p>
+                    <hr class="my-4">
+                    <p>{{ book.description }}</p>
+                    <div class="row">
+                        <div class="col">
+                            <p class="lead">
+                            <input type="checkbox" id="add-to-readlist-{{ book.id }}" checked autocomplete="on">
+                        </p>
+                        </div>
+                        <div class="col-6">
+                            <p>Добавить в ридлист</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+        <div class="row container-fluid">
+            <div class="col container-fluid">
+                <button type="submit" class="btn btn-primary">Создать ридлист</button>
+            </div>
+            <div class="col container-fluid">
+                <button type="submit" class="btn btn-primary">Добавить в существующий ридлист</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
