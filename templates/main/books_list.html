@@ -2,13 +2,23 @@
 
 {% block title %} Findings {% endblock %}
 {% block content %}
-    <h2> Книги по запросу: {{ query }} </h2>
+    <div class="row justify-content-center mx-auto" style="margin-top:20px">
+        <div class="col"></div>
+        <div class="col">
+            <h1> Книги по запросу: {{ query }} </h1>
+        </div>
+        <div class="col"></div>
+    </div>
     <form method="POST">
         {% csrf_token %}
-        <ul>
+        <ul style="background-color:white">
+            <div style="opacity:0"> .... </div>
+            <div
             {% for book in books %}
-                <div class="jumbotron">
-                    <h3 class="display-4">{{ book.name }} </h3>
+            <div class="container" style="background-color:#ededed; border-radius: 15px; margin-top:10px">
+                <div style="opacity:0"> .... </div>
+                <div class="jumbotron" style="margin-left:10px; margin-top:20px; margin-right:10px;">
+                    <h3 class="display-6">{{ book.name }} </h3>
                     <div class="row">
                         <div class="col-9">
                             <p class="lead">{{ book.author }} | {{ book.genre }} | {{ book.ranking }}</p>
@@ -22,18 +32,20 @@
                     </div>
                     <hr class="my-4">
                     <p>{{ book.description }}</p>
+                    <div style="opacity:0"> .... </div>
                 </div>
-                <br>
+            </div>
+            <br>
             {% endfor %}
         </ul>
         <div class="row container-fluid">
             <div class="col">
-                <button class="btn btn-primary container-fluid" type="submit" name="create_readlist">
+                <button class="btn btn-primary container-fluid" type="submit" name="create_readlist" style="background-color:#474747">
                     Создать ридлист
                 </button>
             </div>
             <div class="col">
-                <button type="submit" name="add_to_readlist" class="btn btn-primary container-fluid">Добавить в
+                <button type="submit" name="add_to_readlist" class="btn btn-primary container-fluid" style="background-color:#474747">Добавить в
                     существующий ридлист
                 </button>
             </div>

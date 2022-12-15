@@ -4,8 +4,23 @@
 {% block title %}Зарегистрироваться{% endblock %}
 {%  block content %}
     <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit" class="btn btn-success container-fluid">Зарегистрироваться</button>
+        <div class="row justify-content-center mx-auto" style="background-image:url(https://img.freepik.com/free-vector/white-bookshelf-mockup-books-on-shelf-in-library_107791-2423.jpg?w=1380&t=st=1671111819~exp=1671112419~hmac=07f38c7afadf47dfc820d5f314bea8dd647ea970b1ad4ab53adcd2087aa7e5f4)">
+            <div class="col"></div>
+                <div class="col-3">
+                    <div class="row" style="margin-top:40px">
+                        <div class="container" style="background-color:white; border-radius: 10px">
+                            <div style="opacity:0"> .... </div>
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button type="submit" class="btn btn-success container-fluid" style="background-color:#474747">Зарегистрироваться</button>
+                            <div style="opacity:0"> .... </div>
+                            <div style="opacity:0"> .... </div>
+                            </div>
+                            <div style="opacity:0"> .... </div>
+                            <div style="opacity:0"> .... </div>
+                        </div>
+                </div>
+            <div class="col"></div>
+        </div>
     </form>
 {% endblock %}
