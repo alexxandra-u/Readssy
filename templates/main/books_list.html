@@ -15,7 +15,7 @@
                         </div>
                         <div class="col">
                             <label>
-                                <input type="checkbox" name="add-to-readlist-{{ book.id }}">
+                                <input type="checkbox" id="add-to-readlist-{{ book.id }}">
                                 Добавить в ридлист
                             </label>
                         </div>
@@ -28,36 +28,35 @@
         </ul>
         <div class="row container-fluid">
             <div class="col">
-                <button type="button" class="btn btn-primary container-fluid" name="create" data-bs-toggle="modal"
-                        data-bs-target="#newReadList">
+                <button class="btn btn-primary container-fluid" type="submit" name="create_readlist">
                     Создать ридлист
                 </button>
-                <div class="modal fade" id="newReadList" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <label>Название: <input type="text" name="readlist_title" value="{{ query }}"></label>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                                <button type="submit" name="create_readlist" class="btn btn-primary">Сохранить</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col">
                 <button type="submit" name="add_to_readlist" class="btn btn-primary container-fluid">Добавить в
                     существующий ридлист
                 </button>
             </div>
+            {% comment %}<div class="modal fade" id="newReadList" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Создать новый ридлист</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <label><input type="text" name="readlist_title"></label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                            <button type="button" type="submit" name="create_readlist"class="btn btn-primary">Создать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>{% endcomment %}
         </div>
     </form>
-
 {% endblock %}
