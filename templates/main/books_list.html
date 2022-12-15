@@ -8,32 +8,55 @@
         <ul>
             {% for book in books %}
                 <div class="jumbotron">
-                    <h3 class="display-4">{{ book.name }}</h3>
-                    <p class="lead">{{ book.author }}</p>
-                    <p class="lead">{{ book.ranking }}</p>
-                    <p class="lead">{{ book.genre }}</p>
-                    <hr class="my-4">
-                    <p>{{ book.description }}</p>
+                    <h3 class="display-4">{{ book.name }} </h3>
                     <div class="row">
-                        <div class="col">
-                            <p class="lead">
-                            <input type="checkbox" id="add-to-readlist-{{ book.id }}" checked autocomplete="on">
-                        </p>
+                        <div class="col-9">
+                            <p class="lead">{{ book.author }} | {{ book.genre }} | {{ book.ranking }}</p>
                         </div>
-                        <div class="col-6">
-                            <p>Добавить в ридлист</p>
+                        <div class="col">
+                            <label>
+                                <input type="checkbox" id="add-to-readlist-{{ book.id }}">
+                                Добавить в ридлист
+                            </label>
                         </div>
                     </div>
+                    <hr class="my-4">
+                    <p>{{ book.description }}</p>
                 </div>
+                <br>
             {% endfor %}
         </ul>
         <div class="row container-fluid">
-            <div class="col container-fluid">
-                <button type="submit" class="btn btn-primary">Создать ридлист</button>
+            <div class="col">
+                <button class="btn btn-primary container-fluid" type="submit" name="create_readlist">
+                    Создать ридлист
+                </button>
             </div>
-            <div class="col container-fluid">
-                <button type="submit" class="btn btn-primary">Добавить в существующий ридлист</button>
+            <div class="col">
+                <button type="submit" name="add_to_readlist" class="btn btn-primary container-fluid">Добавить в
+                    существующий ридлист
+                </button>
             </div>
+            {% comment %}<div class="modal fade" id="newReadList" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Создать новый ридлист</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <label><input type="text" name="readlist_title"></label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+                            <button type="button" type="submit" name="create_readlist"class="btn btn-primary">Создать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>{% endcomment %}
         </div>
     </form>
 {% endblock %}

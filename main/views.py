@@ -1,9 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import re
 import json
-from .models import Book
+from .models import Book, ReadList
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
 
 # from scrapy.crawler import CrawlerProcess, CrawlerRunner
 
@@ -26,6 +27,7 @@ def search_books(request):
                             data[i]["genre"] and query in data[i]["genre"]) or (
                             data[i]["description"] and query in data[i]["description"]):
                         try:
+                            convert_to_empty(data[i])
                             book = Book.objects.get(description=data[i]["description"], name=data[i]["name"],
                                                     author=data[i]["author"])
                         except:
@@ -34,39 +36,54 @@ def search_books(request):
                             book.save()
                         data[i]["id"] = book.id
                         suitable.append(data[i])
-                        print(data[i]["name"])
                         cnt += 1
                 if cnt > 20:
                     break
 
         return render(request, 'main/books_list.html', {'books': suitable})
+    if request.method == "POST":
+        print('here')
+        p = request.POST
+        user = request.user
+        if not user.is_authenticated:
+            return render(request, 'main/home.html')
+        print('here')
+        if 'create_readlist' in p:
+            readlist = ReadList(user=user)
+            for el in p:
+                if el.startswith('add-to-readlist-'):
+                    book = Book.objects.get(id=el.split('add-to-readlist-')[-1])
+                    print(book.name)
+                    readlist.books.add(book)
+            readlist.save()
     return render(request, 'main/home.html')
 
-    # ПОПЫТКА ВЫЗВАТЬ SCRAPY ЧЕРЕЗ CRAWLPROCESS (кажется вот это должно быть правильным вариантом)
-    # process = CrawlerProcess()
-    # process.crawl(LivelibSpider)
-    # process.start()
 
-    # ПОПЫТКА ВЫЗВАТЬ SCRAPY ЧЕРЕЗ CRAWLRUNNER
-    # runner = CrawlerRunner()
-    # runner.crawl(LivelibSpider.LivelibSpider)
-    # runner.crawl(EksmoSpider.EksmoSpider)
-    # runner.crawl(KnigopoiskSpider.KnigopoiskSpider)
-    # reactor.run()
-    # print("smth worked")
-    # d = runner.join()
-    # d.addBoth(lambda _: reactor.stop())
+def convert_to_empty(data):
+    data["name"] = (data["name"] if data["name"] is not None else "")
+    data["author"] = (data["author"] if data["author"] is not None else "")
+    data["genre"] = (data["namegenre"] if data["name"] is not None else "")
+    data["description"] = (data["description"] if data["description"] is not None else "")
+    data["ranking"] = (data["ranking"] if data["ranking"] is not None else 0.0)
 
-    # ПОПЫТКА ВЫЗВВАТЬ SCRAPY ЧЕРЕЗ CMDLINE
-    # cmdline.execute(["cd","./"])
-    # cmdline.execute(["scrapy", "crawl", "livelib"])
-    # book_scraper.scrapy_main.run_spiders(queries)
 
-    # ПОПЫТКА ВЫЗВАТЬ SCRAPY ЧЕРЕЗ SUBPROCESS
-    # subprocess.call(["cd", ".."], shell = True)
-    # subprocess.call('ls', shell=True, cwd='path/to/wanted/dir/')
-    # subprocess.call(["scrapy", "crawl", 'livelib', "-o", "items.json"], cwd='./book_scraper', shell=True)
-    # subprocess.call(["scrapy", "crawl", "livelib", "-o", "items.json"], cwd='~/PycharmProjects/readssy/scraper', shell=True)
+@login_required(login_url='login')
+def books_list(request):
+    print('hereeee')
+    if request.method == 'POST':
+        p = request.POST
+        user = request.user
+        print('here')
+        if 'create_readlist' in p:
+            readlist = ReadList(user=user)
+            for el in p:
+                if el.startswith('add-to-readlist-'):
+                    book = Book.objects.get(id=el.split('add-to-readlist-')[-1])
+                    print(book.name)
+                    readlist.books.add(book)
+            readlist.save()
+    else:
+        return redirect('main/home.html')
 
 
 def home_view(request):
