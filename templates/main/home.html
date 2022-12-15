@@ -2,79 +2,98 @@
 {% block title %}Home{% endblock %}
 
 {% block carousel %}
-<div id="myCarousel" class="carousel slide span12" data-bs-ride="carousel" style="height:200px">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="" aria-current="true"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+    <div id="myCarousel" class="carousel slide span12" data-bs-ride="carousel" style="height:200px">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""
+                    aria-current="true"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
+                    class=""></button>
+        </div>
+        <div class="carousel-inner" style="height:200px">
+            <div class="carousel-item active">
+                <svg class="bd-placeholder-img" width="100%" height="200px" xmlns="http://www.w3.org/2000/svg"
+                     aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#474747"></rect>
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <p>Книги собирают жемчужины человеческой мысли и передают их потомству. Мы превратимся в горсть
+                            праха, но книги, словно памятники из железа и камня, сохраняются навек.</p>
+                        <p>М. Айбек</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="200px" xmlns="http://www.w3.org/2000/svg"
+                     aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#474747"></rect>
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption">
+                        <p>Без чтения нет настоящего образования, нет и не может быть ни вкуса, ни слова, ни
+                            многосторонней шири понимания; Гёте и Шекспир равняются целому университету. Чтением человек
+                            переживает века.</p>
+                        <p>Александр Герцен</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="200px" xmlns="http://www.w3.org/2000/svg"
+                     aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <rect width="100%" height="100%" fill="#474747"></rect>
+                </svg>
+                <div class="container">
+                    <div class="carousel-caption text-end">
+                        <p>Скажи, что ты читаешь, и я скажу, кто ты — это верно. Но я лучше узнаю тебя, если ты скажешь,
+                            что ты перечитываешь.</p>
+                        <p>Франсуа Мориак</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Следующий</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Предыдущий</span>
+        </button>
     </div>
-    <div class="carousel-inner" style="height:200px">
-      <div class="carousel-item active">
-        <svg class="bd-placeholder-img" width="100%" height="200px" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#474747"></rect></svg>
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <p>Книги собирают жемчужины человеческой мысли и передают их потомству. Мы превратимся в горсть праха, но книги, словно памятники из железа и камня, сохраняются навек.</p>
-              <p>М. Айбек</p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="200px"  xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#474747"></rect></svg>
-        <div class="container">
-          <div class="carousel-caption">
-            <p>Без чтения нет настоящего образования, нет и не может быть ни вкуса, ни слова, ни многосторонней шири понимания; Гёте и Шекспир равняются целому университету. Чтением человек переживает века.</p>
-            <p>Александр Герцен</p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="200px"  xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#474747"></rect></svg>
-        <div class="container">
-          <div class="carousel-caption text-end">
-            <p>Скажи, что ты читаешь, и я скажу, кто ты — это верно. Но я лучше узнаю тебя, если ты скажешь, что ты перечитываешь.</p>
-            <p>Франсуа Мориак</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Следующий</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Предыдущий</span>
-    </button>
-</div>
 {% endblock %}
 {% block content %}
-   <div style="background-image:url(https://www.fonstola.ru/images/201306/fonstola.ru_98169.jpg)">
+    <div style="background-image:url(https://www.fonstola.ru/images/201306/fonstola.ru_98169.jpg)">
         <div class='container'>
             <div class="row justify-content-center mx-auto">
                 <div class="col"></div>
-                    <div class="col-6" style="margin-top:40px; background-color:#ffffff; border-radius: 10px; opacity:0.94">
-                        <h1 style="margin-top:10px">Об этом проекте</h1>
-                        <div>
-                            <div>READSSY предназначен для поиска книг на любой вкус. Он собирает информацию из таких
-                                авторитетных источников, как:
-                            </div>
-                            <ol>
+                <div class="col-6" style="margin-top:40px; background-color:#ffffff; border-radius: 10px; opacity:0.94">
+                    <h1 style="margin-top:10px">Об этом проекте</h1>
+                    <div>
+                        <div style="margin-top:7px">READSSY помогает искать книги по интересующим вас вопросам, а также
+                            формировать удобные ридлисты.
+                        </div>
+                        <div style="margin-top:7px">
+                            Мы собираем информацию из таких источников, как:
+                        </div>
+                        <ol>
                             <li>Livelib</li>
                             <li>Knigopoisk</li>
                             <li>Eksmo</li>
-                            </ol>
-                            <div style="margin-top:7px">Здесь вы сможете найти ту самую книгу, которую мечтаете
-                                прочитать сейчас.</div>
-                            <div style="margin-top:7px">Вам нужно лишь ввести запрос в поисковой строке, расположенной
-                                в правом верхнем углу.</div>
-                            <div style="margin-top:7px">Приятного чтения!</div>
-                            <div style="color:white">  .</div>
+                        </ol>
+                        <div style="margin-top:7px">Вместе с нами вы можете создавать списки книг в пару кликов.
+                            Чтобы начать поиск, введите запрос в окне, расположенном
+                            в правом верхнем углу.
                         </div>
+                        <div style="margin-top:7px">Приятного чтения!</div>
+                        <div style="color:white"> .</div>
                     </div>
+                </div>
                 <div class="col">
                 </div>
             </div>
             <div>.</div>
         </div>
-   </div>
+    </div>
 {% endblock %}

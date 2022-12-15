@@ -64,12 +64,41 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <button type="submit" name="add_to_readlist" class="btn btn-primary container-fluid"
-                        style="background-color:#474747">Добавить в
-                    существующий ридлист
-                </button>
-            </div>
+            {% if user.is_authenticated %}
+                <div class="col">
+                    <button name="add" type="button" class="btn btn-primary container-fluid"
+                            style="background-color:#474747" data-bs-toggle="modal"
+                            data-bs-target="#addToReadList">
+                        Добавить в существующий ридлист
+                    </button>
+                    <div class="modal fade" id="addToReadList" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Выберите ридлисты:</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% for list in user.readlist_set.all %}
+                                        <label><input type="checkbox" name="add-to-this-readlist-{{ list.id }}"> {{ list.title }}</label>
+                                        <br>
+                                    {% endfor %}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+                                    <button type="submit" name="add_to_readlist" class="btn btn-primary">Добавить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                ...
+            {% endif %}
+
         </div>
     </form>
 {% endblock %}
