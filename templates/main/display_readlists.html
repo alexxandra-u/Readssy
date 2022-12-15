@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Findings {% endblock %}
+{% block content %}
+    <ul>
+        {% for list in lists %}
+            <form class="navbar-form navbar-right" role="search" method="POST" action={% url 'lists' %}>
+                {%  csrf_token %}
+                <div class="row">
+                    <div class="col-8">
+                        <a href="{% url 'readlist' list.id %}"><h3 class="display-4"> {{ list.title }} </h3></a>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#deleteReadlist">Удалить ридлист
+                        </button>
+                    </div>
+                    <div class="modal fade" id="deleteReadlist" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Удалить ридлист?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить
+                                    </button>
+                                    <button type="submit" name="delete-readlist-{{ list.id }}" class="btn btn-primary">
+                                        Удалить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        {% endfor %}
+    </ul>
+
+{% endblock %}

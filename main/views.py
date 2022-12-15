@@ -13,8 +13,10 @@ prepositions = ["в", "без", "до", "из", "к", "на", "по", "о", "о�
 
 
 def search_books(request):
-    if 'q' in request.GET and request.GET['q']:
-        q = request.GET['q']
+    print(request.method)
+    print(request.POST)
+    if request.method == "GET" and 'q' in request.GET and request.GET['q']:
+        q = request.GET['q'].strip()
         queries = re.sub(' +', ' ', q.strip().lower()).split(' ')  # какие слова будем искать в названии книжки
         queries = [i for i in queries if i not in prepositions]  # убираем предлоги
         suitable = []  # вот сюда пока сохраню подошедшие книги
@@ -39,51 +41,58 @@ def search_books(request):
                         cnt += 1
                 if cnt > 20:
                     break
+        return render(request, 'main/books_list.html', {'books': suitable, "query": q})
 
-        return render(request, 'main/books_list.html', {'books': suitable})
     if request.method == "POST":
-        print('here')
         p = request.POST
         user = request.user
         if not user.is_authenticated:
             return render(request, 'main/home.html')
-        print('here')
         if 'create_readlist' in p:
-            readlist = ReadList(user=user)
+            print('yep')
+            readlist = user.readlist_set.create()
+            readlist.title = p.get('readlist_title', 'Новый ридлист')
             for el in p:
                 if el.startswith('add-to-readlist-'):
                     book = Book.objects.get(id=el.split('add-to-readlist-')[-1])
                     print(book.name)
                     readlist.books.add(book)
             readlist.save()
-    return render(request, 'main/home.html')
+    return redirect('home')
+
+
+@login_required(login_url="login")
+def lists_view(request):
+    if request.method == "POST":
+        for el in request.POST:
+            if el.startswith('delete-readlist-'):
+                ReadList.objects.get(id=el.split('delete-readlist-')[-1]).delete()
+
+    readlists = ReadList.objects.filter(user=request.user)
+    return render(request, "main/display_readlists.html", {"lists": readlists})
+
+
+@login_required(login_url="login")
+def readlist_view(request, id):
+    print('here')
+    if request.method == "POST":
+        readlist = ReadList.objects.get(id=id)
+        for el in request.POST:
+            if el.startswith('delete-book-from-readlist-'):
+                print('deleting')
+                book = Book.objects.get(id=el.split('delete-book-from-readlist-')[-1])
+                readlist.books.remove(book)
+            readlist.save()
+    readlist = ReadList.objects.get(id=id)
+    return render(request, "main/display_readlist.html", {"list": readlist})
 
 
 def convert_to_empty(data):
     data["name"] = (data["name"] if data["name"] is not None else "")
     data["author"] = (data["author"] if data["author"] is not None else "")
-    data["genre"] = (data["namegenre"] if data["name"] is not None else "")
+    data["genre"] = (data["genre"] if data["genre"] is not None else "")
     data["description"] = (data["description"] if data["description"] is not None else "")
     data["ranking"] = (data["ranking"] if data["ranking"] is not None else 0.0)
-
-
-@login_required(login_url='login')
-def books_list(request):
-    print('hereeee')
-    if request.method == 'POST':
-        p = request.POST
-        user = request.user
-        print('here')
-        if 'create_readlist' in p:
-            readlist = ReadList(user=user)
-            for el in p:
-                if el.startswith('add-to-readlist-'):
-                    book = Book.objects.get(id=el.split('add-to-readlist-')[-1])
-                    print(book.name)
-                    readlist.books.add(book)
-            readlist.save()
-    else:
-        return redirect('main/home.html')
 
 
 def home_view(request):
