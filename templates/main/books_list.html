@@ -3,11 +3,9 @@
 {% block title %} Findings {% endblock %}
 {% block content %}
     <div class="row justify-content-center mx-auto" style="margin-top:20px">
-        <div class="col"></div>
-        <div class="col">
+        <div class="col text-center">
             <h1> Книги по запросу: {{ query }} </h1>
         </div>
-        <div class="col"></div>
     </div>
     <form method="POST">
         {% csrf_token %}

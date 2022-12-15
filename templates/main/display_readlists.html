@@ -5,34 +5,72 @@
     <h1 align="center" style="margin-top:20px"> Мои ридлисты </h1>
     <ul style="margin-top:40px">
         {% for list in lists %}
-        <div class="container border-bottom">
-        <form class="navbar-form navbar-right" role="search" method="POST" action={% url 'lists' %}>
-            {%  csrf_token %}
-            <div class="row justify-content-center mx-auto" style="margin-top:20px">
-                <div class="col">
-                    <a href="{% url 'readlist' list.id %}" style="color:black"><h3 class="display-7" align="center"> {{ list.title }} </h3></a>
-                </div>
-                <div class="col">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteReadlist" style="background-color:#474747">Удалить ридлист</button>
-                </div>
-                <div class="modal fade" id="deleteReadlist" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Удалить ридлист?</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
-                                <button type="submit" name="delete-readlist-{{ list.id }}" class="btn btn-primary">Удалить</button>
+            <div class="container border-bottom">
+                <form method="POST" action={% url 'lists' %}>
+                    {% csrf_token %}
+                    <div class="row justify-content-center mx-auto" style="margin-top:20px">
+                        <div class="col">
+                            <a href="{% url 'readlist' list.id %}" style="color:black"><h3 class="display-7"
+                                                                                           align="center"> {{ list.title }} </h3>
+                            </a>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#deleteReadlist" style="background-color:#474747">Удалить ридлист
+                            </button>
+                        </div>
+                        <div class="modal fade" id="deleteReadlist" tabindex="-1" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Удалить ридлист?</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Отменить
+                                        </button>
+                                        <button type="submit" name="delete-readlist-{{ list.id }}"
+                                                class="btn btn-primary">Удалить
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
-        </div>
         {% endfor %}
     </ul>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="button" class="btn btn-primary" name="create" data-bs-toggle="modal"
+                data-bs-target="#newReadList" style="margin: 0 auto;display: block;background-color:#474747">
+            Создать ридлист
+        </button>
+        <div class="modal fade" id="newReadList" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Название: <input type="text" name="readlist_title" value="{{ query }}"></label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить
+                        </button>
+                        <button type="submit" name="create_readlist" class="btn btn-primary">Создать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}
 

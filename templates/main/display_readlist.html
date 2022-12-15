@@ -2,10 +2,12 @@
 
 {% block title %} {{ list.title }} {% endblock %}
 {% block content %}
-    <h1 align="center" style="margin-top:20px"> Ридлист: {{list.title}}</h1>
+    <h1 align="center" style="margin-top:20px"> Ридлист: {{ list.title }}</h1>
     <ul>
         {% for book in list.books.all %}
-             <div class="container" style="background-color:#ededed; border-radius: 15px; margin-top:20px">
+            <form method="POST" action={% url 'readlist' list.id %}>
+                {% csrf_token %}
+                <div class="container" style="background-color:#ededed; border-radius: 15px; margin-top:20px">
                     <div style="opacity:0"> ....</div>
                     <div class="jumbotron" style="margin-left:10px; margin-right:10px;">
                         <h3 class="display-6">{{ book.name }} </h3>
@@ -16,33 +18,36 @@
                         </div>
                         <hr class="my-4">
                         <p>{{ book.description }}</p>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteBookFromReadlist" style="background-color:#474747">Удалить книгу</button>
-                        <div style="opacity:0"> ....</div>
-                    </div>
-                    <div class="modal fade" id="deleteBookFromReadlist" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Удалить книгу из ридлиста
-                                        "{{ list.title }}"?</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить
-                                    </button>
-                                    <button type="submit" name="delete-book-from-readlist-{{ book.id }}" class="btn btn-primary">
-                                        Удалить
-                                    </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#deleteBookFromReadlist" style="background-color:#474747">Удалить книгу
+                        </button>
+                        <div class="modal fade" id="deleteBookFromReadlist" tabindex="-1"
+                             aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Удалить книгу из ридлиста
+                                            "{{ list.title }}"?</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить
+                                        </button>
+                                        <button type="submit" name="delete-book-from-readlist-{{ book.id }}"
+                                                class="btn btn-primary">
+                                            Удалить
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div style="opacity:0"> ....</div>
                     </div>
                 </div>
-                <br>
-            {% comment %}TODO: display books the way you like{% endcomment %}
+            </form>
+            <br>
         {% endfor %}
     </ul>
-
 {% endblock %}

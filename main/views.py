@@ -1,12 +1,9 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 import re
 import json
 from .models import Book, ReadList
-from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 
-# from scrapy.crawler import CrawlerProcess, CrawlerRunner
 
 prepositions = ["в", "без", "до", "из", "к", "на", "по", "о", "от", "перед", "при", "через", "для", "с", "у", "за",
                 "над", "об", "под", "про"]
@@ -47,7 +44,7 @@ def search_books(request):
         p = request.POST
         user = request.user
         if not user.is_authenticated:
-            return render(request, 'main/home.html')
+            return redirect('login')
         if 'create_readlist' in p:
             readlist = user.readlist_set.create()
             readlist.title = p.get('readlist_title', 'Новый ридлист')
@@ -72,9 +69,17 @@ def search_books(request):
 @login_required(login_url="login")
 def lists_view(request):
     if request.method == "POST":
-        for el in request.POST:
-            if el.startswith('delete-readlist-'):
-                ReadList.objects.get(id=el.split('delete-readlist-')[-1]).delete()
+        if 'create_readlist' in request.POST:
+            print(request.POST)
+            readlist = request.user.readlist_set.create()
+            readlist.title = request.POST.get('readlist_title', 'Новый ридлист')
+            readlist.save()
+        else:
+            print(request.POST)
+            for el in request.POST:
+                if el.startswith('delete-readlist-'):
+                    print(el.split('delete-readlist-'))
+                    ReadList.objects.filter(id=int(el.split('delete-readlist-')[-1])).delete()
 
     readlists = ReadList.objects.filter(user=request.user)
     return render(request, "main/display_readlists.html", {"lists": readlists})
@@ -86,9 +91,9 @@ def readlist_view(request, id):
         readlist = ReadList.objects.get(id=id)
         for el in request.POST:
             if el.startswith('delete-book-from-readlist-'):
-                book = Book.objects.get(id=el.split('delete-book-from-readlist-')[-1])
+                book = Book.objects.get(id=int(el.split('delete-book-from-readlist-')[-1]))
+                print(book.name)
                 readlist.books.remove(book)
-            readlist.save()
     readlist = ReadList.objects.get(id=id)
     return render(request, "main/display_readlist.html", {"list": readlist})
 
