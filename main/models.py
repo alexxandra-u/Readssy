@@ -10,8 +10,13 @@ class Book(models.Model):
     description = models.TextField(default=' ')
 
 
+class BookInReadList(models.Model):
+    book_info = models.ForeignKey(Book, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+
+
 class ReadList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=300, default="Новый ридлист")
     description = models.TextField(default=" ")
-    books = models.ManyToManyField(Book)
+    books = models.ManyToManyField(BookInReadList)

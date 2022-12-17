@@ -10,17 +10,42 @@
                 <div class="container" style="background-color:#ededed; border-radius: 15px; margin-top:20px">
                     <div style="opacity:0"> ....</div>
                     <div class="jumbotron" style="margin-left:10px; margin-right:10px;">
-                        <h3 class="display-6">{{ book.name }} </h3>
+                        <h3 class="display-6">{{ book.book_info.name }} </h3>
                         <div class="row">
                             <div class="col-9">
-                                <p class="lead">{{ book.author }} | {{ book.genre }} | {{ book.ranking }}</p>
+                                <p class="lead">{{ book.book_info.author }} | {{ book.book_info.genre }}
+                                    | {{ book.book_info.ranking }}</p>
                             </div>
                         </div>
                         <hr class="my-4">
-                        <p>{{ book.description }}</p>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#deleteBookFromReadlist" style="background-color:#474747">Удалить книгу
-                        </button>
+                        <p>{{ book.book_info.description }}</p>
+                        <div class="row">
+                            <div class="col">
+                                {% if book.read %}
+                                    <button type="submit" name="mark-unread-{{ book.id }}" class="btn btn-success">
+                                        Прочитано
+                                    </button>
+                                {% else %}
+                                    <button type="submit" name="mark-read-{{ book.id }}" class="btn btn-primary"
+                                            style="background-color:#474747">Не прочитано
+                                    </button>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#deleteBookFromReadlist" style="background-color:#474747">
+                                    Удалить
+                                    книгу
+                                </button>
+                            </div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                        </div>
+
                         <div class="modal fade" id="deleteBookFromReadlist" tabindex="-1"
                              aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
